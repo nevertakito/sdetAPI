@@ -19,5 +19,6 @@ public class DeleteEntityTest extends BaseTest{
                 .get("/api/get/" + EntityPool.getEntity().getId())
                 .then()
                 .equals(ObjectUtils.NULL);
+        EntityPool.removeEntity();
     }
 }
