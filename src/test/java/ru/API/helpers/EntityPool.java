@@ -16,4 +16,9 @@ public class EntityPool {
             entity.remove();
         }
     }
+    public static void removeEntity(){
+        if(entity.get()!=null){
+            entity.remove();
+        }
+    }
 }

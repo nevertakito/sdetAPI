@@ -44,6 +44,10 @@ public class GetAllEntityTest extends BaseTest{
         EntityListResponse response = new Gson().fromJson(jsonResponse, EntityListResponse.class);
         List<Entity> responseList = response.getEntity();
         Assert.softAsserts(entityList,responseList);
-        EntityPool.deleteEntity();
+
+
+        BaseRequests.deleteEntities(entityIdList);
+        EntityPool.removeEntity();
+        entityIdList.clear();
     }
 }
