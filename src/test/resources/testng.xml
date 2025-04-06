@@ -3,10 +3,10 @@
     <test name="All Tests">
         <classes>
             <class name="ru.API.tests.GetEntityTest"/>
+            <class name="ru.API.tests.GetAllEntityTest"/>
             <class name="ru.API.tests.CreateEntityTest"/>
             <class name="ru.API.tests.DeleteEntityTest"/>
             <class name="ru.API.tests.PatchEntityTest"/>
-            <class name="ru.API.tests.GetAllEntityTest"/>
         </classes>
     </test>
 </suite>

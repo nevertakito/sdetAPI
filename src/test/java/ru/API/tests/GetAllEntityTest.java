@@ -9,6 +9,7 @@ import ru.API.pojo.EntityListResponse;
 import ru.API.pojo.Entity;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,12 +17,14 @@ import static io.restassured.RestAssured.given;
 
 public class GetAllEntityTest extends BaseTest{
     protected List<Entity> entityList;
+    protected List<String> entityIdList = new ArrayList<>();
 
-
-    @Test(groups = "GetAllMethod")
+    @Test
     public void testGetCorrectAllEntity(){
-        entityIdList.add(BaseRequests.createEntity(entity, requestSpecification));
-        entityIdList.add(BaseRequests.createEntity(entity, requestSpecification));
+        BaseRequests.deleteEntityById(entityId);
+
+        entityIdList = BaseRequests.createEntities(List.of(entity,entity,entity),requestSpecification);
+
         entityList = Arrays.asList(
                 BaseRequests.getEntityById(entityIdList.get(0),requestSpecification),
                 BaseRequests.getEntityById(entityIdList.get(1),requestSpecification),
@@ -40,12 +43,10 @@ public class GetAllEntityTest extends BaseTest{
 
         EntityListResponse response = new Gson().fromJson(jsonResponse, EntityListResponse.class);
         List<Entity> responseList = response.getEntity();
-
+        System.out.println(entityList);
+        System.out.println();
+        System.out.println(responseList);
         Assert.softAsserts(entityList,responseList);
-    }
-
-    @AfterMethod
-    public void teardown(){
         BaseRequests.deleteEntities(entityIdList);
     }
 }

@@ -12,9 +12,7 @@ public class CreateEntityTest extends BaseTest{
     public void testCreateEntity(){
         Entity entityNew = BaseRequests.getEntityById(entityId,requestSpecification);
         Assert.softAssert(entity,entityNew);
-    }
-    @AfterMethod
-    public void teardown(){
         BaseRequests.deleteEntityById(entityId);
+
     }
 }

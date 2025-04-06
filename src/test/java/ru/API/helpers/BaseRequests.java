@@ -6,6 +6,7 @@ import ru.API.pojo.Entity;
 import ru.API.tests.BaseTest;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static io.restassured.RestAssured.given;
 
@@ -27,6 +28,23 @@ public class BaseRequests extends BaseTest{
                                     .then()
                                     .statusCode(204));
         }
+    }
+
+    public static List<String> createEntities(List<Entity> entityList, RequestSpecification requestSpecification){
+        return entityList.stream()
+                .map(entity ->
+                        given()
+                                .spec(requestSpecification)
+                                .body(entity)
+                                .when()
+                                .post("/api/create")
+                                .then()
+                                .statusCode(200)
+                                .extract()
+                                .body()
+                                .asString()
+                )
+                .collect(Collectors.toList());
     }
     public static String createEntity(Entity entity, RequestSpecification requestSpecification){
         return given()

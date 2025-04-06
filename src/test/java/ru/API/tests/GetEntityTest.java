@@ -11,9 +11,7 @@ public class GetEntityTest extends BaseTest {
     public void testGetCorrectEntity(){
         Entity entityNew = BaseRequests.getEntityById(entityId, requestSpecification);
         Assert.softAssert(entity,entityNew);
-    }
-    @AfterMethod
-    public void teardown(){
         BaseRequests.deleteEntityById(entityId);
+
     }
 }

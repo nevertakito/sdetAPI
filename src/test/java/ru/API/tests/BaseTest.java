@@ -4,6 +4,7 @@ import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import ru.API.helpers.BaseRequests;
 import ru.API.helpers.ConfProperties;
@@ -18,7 +19,6 @@ public class BaseTest {
     protected RequestSpecification requestSpecification;
     protected Entity entity;
     protected String entityId;
-    protected List<String> entityIdList = new ArrayList<>();
 
     @BeforeClass
     public void setup() {
@@ -40,7 +40,6 @@ public class BaseTest {
                         .additional_number(99)
                         .build())
                 .build();
-        entityIdList.add(BaseRequests.createEntity(entity,requestSpecification));
-        entityId = entityIdList.get(0);
+        entityId = BaseRequests.createEntity(entity,requestSpecification);
     }
 }

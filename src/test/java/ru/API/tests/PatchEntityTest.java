@@ -42,9 +42,7 @@ public class PatchEntityTest extends BaseTest{
                 .extract().as(Entity.class, ObjectMapperType.GSON);
 
         Assert.softAssert(entityNew,entityNewCheck);
-    }
-    @AfterMethod
-    public void teardown(){
         BaseRequests.deleteEntityById(entityId);
+
     }
 }
