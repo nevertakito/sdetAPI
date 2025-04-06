@@ -5,6 +5,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import ru.API.helpers.Assert;
 import ru.API.helpers.BaseRequests;
+import ru.API.helpers.EntityPool;
 import ru.API.pojo.EntityListResponse;
 import ru.API.pojo.Entity;
 
@@ -21,10 +22,9 @@ public class GetAllEntityTest extends BaseTest{
 
     @Test
     public void testGetCorrectAllEntity(){
-        BaseRequests.deleteEntityById(entityId);
 
-        entityIdList = BaseRequests.createEntities(List.of(entity,entity,entity),requestSpecification);
-
+        entityIdList.add(EntityPool.getEntity().getId());
+        entityIdList.addAll(BaseRequests.createEntities(List.of(EntityPool.getEntity(),EntityPool.getEntity()),requestSpecification));
         entityList = Arrays.asList(
                 BaseRequests.getEntityById(entityIdList.get(0),requestSpecification),
                 BaseRequests.getEntityById(entityIdList.get(1),requestSpecification),
@@ -43,10 +43,7 @@ public class GetAllEntityTest extends BaseTest{
 
         EntityListResponse response = new Gson().fromJson(jsonResponse, EntityListResponse.class);
         List<Entity> responseList = response.getEntity();
-        System.out.println(entityList);
-        System.out.println();
-        System.out.println(responseList);
         Assert.softAsserts(entityList,responseList);
-        BaseRequests.deleteEntities(entityIdList);
+        EntityPool.deleteEntity();
     }
 }

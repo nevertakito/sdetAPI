@@ -5,6 +5,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import ru.API.helpers.Assert;
 import ru.API.helpers.BaseRequests;
+import ru.API.helpers.EntityPool;
 import ru.API.pojo.Addition;
 import ru.API.pojo.Entity;
 
@@ -29,20 +30,19 @@ public class PatchEntityTest extends BaseTest{
                 .spec(requestSpecification)
                 .body(entityNew)
                 .when()
-                .patch("/api/patch/"+entityId)
+                .patch("/api/patch/"+ EntityPool.getEntity().getId())
                 .then()
                 .statusCode(204);
 
         Entity entityNewCheck = given()
                 .spec(requestSpecification)
                 .when()
-                .get("/api/get/" + entityId)
+                .get("/api/get/" + EntityPool.getEntity().getId())
                 .then()
                 .statusCode(200)
                 .extract().as(Entity.class, ObjectMapperType.GSON);
 
         Assert.softAssert(entityNew,entityNewCheck);
-        BaseRequests.deleteEntityById(entityId);
-
+        EntityPool.deleteEntity();
     }
 }

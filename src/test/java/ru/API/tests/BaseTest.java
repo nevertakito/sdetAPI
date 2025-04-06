@@ -4,10 +4,12 @@ import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import ru.API.helpers.BaseRequests;
 import ru.API.helpers.ConfProperties;
+import ru.API.helpers.EntityPool;
 import ru.API.pojo.Addition;
 import ru.API.pojo.Entity;
 
@@ -31,6 +33,8 @@ public class BaseTest {
                 .setAccept(ContentType.JSON);
         requestSpecification = requestSpecBuilder.build();
 
+
+
         entity = Entity.builder()
                 .title("Test Title")
                 .verified(Boolean.TRUE)
@@ -41,5 +45,6 @@ public class BaseTest {
                         .build())
                 .build();
         entityId = BaseRequests.createEntity(entity,requestSpecification);
+        EntityPool.setEntity(BaseRequests.getEntityById(entityId,requestSpecification));
     }
 }
