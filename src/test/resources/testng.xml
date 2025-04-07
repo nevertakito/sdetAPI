@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Parallel Suite" parallel="classes" thread-count="5">
+    <test name="All Tests">
+        <classes>
+            <class name="ru.API.tests.GetEntityTest"/>
+            <class name="ru.API.tests.GetAllEntityTest"/>
+            <class name="ru.API.tests.CreateEntityTest"/>
+            <class name="ru.API.tests.DeleteEntityTest"/>
+            <class name="ru.API.tests.PatchEntityTest"/>
+        </classes>
+    </test>
+</suite>

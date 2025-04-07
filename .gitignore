@@ -4,13 +4,21 @@ target/
 !**/src/test/**/target/
 
 ### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
-*.iws
+.idea/
 *.iml
 *.ipr
+*.iws
+
+# Allure
+allure-results/
+allure-report/
+
+# Логи и временные файлы
+*.log
+*.tmp
+
+# Другое
+.DS_Store
 
 ### Eclipse ###
 .apt_generated
@@ -33,6 +41,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-### Mac OS ###
-.DS_Store
