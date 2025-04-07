@@ -4,14 +4,21 @@ target/
 !**/src/test/**/target/
 
 ### IntelliJ IDEA ###
-.idea/
-*.iws
 *.iml
 *.ipr
+*.iws
+.idea/
 
 # Allure
 allure-results/
 allure-report/
+
+# Логи и временные файлы
+*.log
+*.tmp
+
+# Другое
+.DS_Store
 
 ### Eclipse ###
 .apt_generated
