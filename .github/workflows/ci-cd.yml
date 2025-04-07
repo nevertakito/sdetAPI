@@ -24,8 +24,8 @@ jobs:
 
       - name: Start API Server
         run: |
-          java -jar target/your-api-server.jar &  # Замените your-api-server.jar на имя вашего JAR-файла
-          sleep 30  # Ожидаем старта сервера (настройте время при необходимости)
+          java -jar target/sdetAPI-1.0-SNAPSHOT.jar
+          sleep 30
 
       - name: Run API tests
         run: mvn test -Dselenium.browser=headless-chrome
