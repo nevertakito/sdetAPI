@@ -21,7 +21,6 @@ public class Addition {
         Addition addition = (Addition) o;
         return Objects.equals(additional_info, addition.additional_info) && Objects.equals(additional_number, addition.additional_number) && Objects.equals(id, addition.id);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(additional_info, additional_number, id);

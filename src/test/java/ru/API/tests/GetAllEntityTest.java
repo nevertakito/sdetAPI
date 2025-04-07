@@ -1,29 +1,30 @@
 package ru.API.tests;
 
 import com.google.gson.Gson;
+import jdk.jfr.Description;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import ru.API.helpers.Assert;
 import ru.API.helpers.BaseRequests;
+import ru.API.helpers.EntityGenerator;
 import ru.API.pojo.Entity;
 import ru.API.pojo.EntityListResponse;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static io.restassured.RestAssured.given;
 
 public class GetAllEntityTest extends BaseTest {
     private final List<String> entityIdList = new ArrayList<>();
+    private final List<Entity> entityList = new ArrayList<>();
 
-    @Test(invocationCount = 2)
+    @Test
+    @Description("Проверка получения всех сущностей")
     public void testGetCorrectAllEntity() {
-
         entityIdList.add(entityId);
-        entityIdList.addAll(BaseRequests.createEntities(List.of(entity, entity), requestSpecification));
-        List<Entity> entityList = new ArrayList<>();
+        entityIdList.addAll(BaseRequests.createEntities(List.of(EntityGenerator.generate(), EntityGenerator.generate()), requestSpecification));
+
         entityList.add(BaseRequests.getEntityById(entityIdList.get(0), requestSpecification));
         entityList.add(BaseRequests.getEntityById(entityIdList.get(1), requestSpecification));
         entityList.add(BaseRequests.getEntityById(entityIdList.get(2), requestSpecification));
@@ -33,17 +34,17 @@ public class GetAllEntityTest extends BaseTest {
         EntityListResponse response = new Gson().fromJson(jsonResponse, EntityListResponse.class);
         List<Entity> responseList = new ArrayList<>(response.getEntity());
 
-        Set<Entity> setEntity = responseList.stream()
-                .flatMap(newResponse -> entityList.stream()
-                        .filter(newResponse::equals)
-                        .map(entity -> newResponse))
-                .collect(Collectors.toCollection(HashSet::new));
+        System.out.println(responseList);
+        System.out.println(entityList);
 
-        Assert.softAsserts(entityList, setEntity.stream().toList());
+        Assert.softAsserts(entityList, responseList);
+        responseList.clear();
+}
 
+    @AfterMethod
+    public void teardown() {
         BaseRequests.deleteEntities(entityIdList);
         entityIdList.clear();
         entityList.clear();
-        responseList.clear();
     }
 }

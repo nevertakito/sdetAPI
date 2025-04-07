@@ -1,5 +1,6 @@
 package ru.API.helpers;
 
+import io.qameta.allure.Step;
 import io.restassured.mapper.ObjectMapperType;
 import io.restassured.specification.RequestSpecification;
 import ru.API.pojo.Entity;
@@ -11,6 +12,11 @@ import java.util.stream.Collectors;
 import static io.restassured.RestAssured.given;
 
 public class BaseRequests extends BaseTest{
+    /**
+     * Метод удаляет сущность по id
+     * @param entityId - id сущности
+     */
+    @Step("Удаление сущности по id")
     public static void deleteEntityById(String entityId){
         given()
                 .when()
@@ -18,6 +24,12 @@ public class BaseRequests extends BaseTest{
                 .then()
                 .statusCode(204);
     }
+
+    /**
+     * Метод удаляет все сущности из списка с id
+     * @param entityIdList - список id сущностей
+     */
+    @Step("Удаление всех сущностей по списку с id")
     public static void deleteEntities(List<String> entityIdList){
         if(!entityIdList.isEmpty()){
             entityIdList
@@ -30,6 +42,13 @@ public class BaseRequests extends BaseTest{
         }
     }
 
+    /**
+     * Метод сохраняет сущности в сервисе по списку сущностей
+     * @param entityList - список сущностей
+     * @param requestSpecification - спецификатор
+     * @return - список id, под которыми сохранились сущности
+     */
+    @Step("Сохранение списка сущностей в сервисе")
     public static List<String> createEntities(List<Entity> entityList, RequestSpecification requestSpecification){
         return entityList.stream()
                 .map(entity ->
@@ -46,6 +65,14 @@ public class BaseRequests extends BaseTest{
                 )
                 .collect(Collectors.toList());
     }
+
+    /**
+     * Метод создает сущность в сервисе
+     * @param entity - сущность
+     * @param requestSpecification - спецификатор
+     * @return - id, под которым сохранилась сущность
+     */
+    @Step("Сохранение сущности в сервисе")
     public static String createEntity(Entity entity, RequestSpecification requestSpecification){
         return given()
                 .spec(requestSpecification)
@@ -57,6 +84,14 @@ public class BaseRequests extends BaseTest{
                 .extract()
                 .asString();
     }
+
+    /**
+     * Метод возвращает сущность по id
+     * @param entityId - id сущности
+     * @param requestSpecification - спецификатор
+     * @return - сущность по его id
+     */
+    @Step("Получение сущности по id")
     public static Entity getEntityById(String entityId, RequestSpecification requestSpecification){
         return given()
                 .spec(requestSpecification)

@@ -19,16 +19,14 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build project
-        run: mvn clean package -DskipTests
-
-      - name: Start API Server
+      - name: Install Chrome and WebDriver
         run: |
-          java -jar target/sdetAPI-1.0-SNAPSHOT.jar
-          sleep 30
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser
 
-      - name: Run API tests
-        run: mvn test -Dselenium.browser=headless-chrome
+      - name: Build and run tests
+        run: |
+          mvn clean test -Dselenium.browser=headless-chrome
 
       - name: Generate Allure Report
         run: mvn allure:report

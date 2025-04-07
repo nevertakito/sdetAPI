@@ -7,6 +7,11 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class Assert {
+    /**
+     * Метод сравнивает две сущности
+     * @param entityFirst - первая сущность для сравнения
+     * @param entitySecond - вторая сущность для сравнения
+     */
     public static void softAssert(Entity entityFirst, Entity entitySecond){
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertEquals(entityFirst.getTitle(), entitySecond.getTitle());
@@ -17,6 +22,11 @@ public class Assert {
         softAssert.assertAll();
     }
 
+    /**
+     * Метод сравнивает два списка сущностей
+     * @param entitiesFirst - первый список сущностей для сравнения
+     * @param entitiesSecond - второй список сущностей для сравнения
+     */
     public static void softAsserts(List<Entity> entitiesFirst, List<Entity> entitiesSecond){
         SoftAssert softAssert = new SoftAssert();
 
@@ -24,6 +34,7 @@ public class Assert {
                 entitiesFirst.size(),
                 entitiesSecond.size()
         );
+
         IntStream.range(0, Math.min(entitiesFirst.size(), entitiesSecond.size()))
                 .forEach(index -> {
                     Entity entity = entitiesFirst.get(index);

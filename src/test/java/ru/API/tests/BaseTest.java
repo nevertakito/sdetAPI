@@ -7,10 +7,8 @@ import io.restassured.specification.RequestSpecification;
 import org.testng.annotations.BeforeMethod;
 import ru.API.helpers.BaseRequests;
 import ru.API.helpers.ConfProperties;
-import ru.API.pojo.Addition;
+import ru.API.helpers.EntityGenerator;
 import ru.API.pojo.Entity;
-
-import java.util.Arrays;
 
 public class BaseTest {
     protected RequestSpecification requestSpecification;
@@ -19,13 +17,12 @@ public class BaseTest {
 
     @BeforeMethod
     public void setup() {
-
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         RequestSpecBuilder requestSpecBuilder = new RequestSpecBuilder();
         requestSpecBuilder.setContentType(ContentType.JSON).setBaseUri(ConfProperties.getProperty("apiUrl")).setAccept(ContentType.JSON);
         requestSpecification = requestSpecBuilder.build();
 
-        entity = Entity.builder().title("Test Title").verified(Boolean.TRUE).important_numbers(Arrays.asList(1, 2, 3)).addition(Addition.builder().additional_info("Test Info").additional_number(99).build()).build();
+        entity = EntityGenerator.generate();
         entityId = BaseRequests.createEntity(entity, requestSpecification);
     }
 }
