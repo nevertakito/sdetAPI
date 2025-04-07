@@ -8,7 +8,7 @@ import static io.restassured.RestAssured.given;
 
 public class DeleteEntityTest extends BaseTest {
 
-    @Test
+    @Test(invocationCount = 2)
     public void testDeleteEntity() {
         BaseRequests.deleteEntityById(entityId);
         given().spec(requestSpecification).when().get("/api/get/" + entityId).then().equals(ObjectUtils.NULL);

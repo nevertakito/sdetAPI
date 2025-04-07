@@ -18,7 +18,7 @@ import static io.restassured.RestAssured.given;
 public class GetAllEntityTest extends BaseTest {
     private final List<String> entityIdList = new ArrayList<>();
 
-    @Test
+    @Test(invocationCount = 2)
     public void testGetCorrectAllEntity() {
 
         entityIdList.add(entityId);

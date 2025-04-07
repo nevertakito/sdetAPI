@@ -12,7 +12,7 @@ import java.util.Arrays;
 import static io.restassured.RestAssured.given;
 
 public class PatchEntityTest extends BaseTest {
-    @Test
+    @Test(invocationCount = 2)
     public void testPatchEntity() {
         Entity entityNew = Entity.builder().title("Update Title").verified(Boolean.TRUE).important_numbers(Arrays.asList(4, 5, 6)).addition(Addition.builder().additional_info("Update Info").additional_number(66).build()).build();
 

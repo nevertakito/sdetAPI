@@ -4,10 +4,10 @@ target/
 !**/src/test/**/target/
 
 ### IntelliJ IDEA ###
+.idea/
 *.iml
 *.ipr
 *.iws
-.idea/
 
 # Allure
 allure-results/
@@ -41,6 +41,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-### Mac OS ###
-.DS_Store

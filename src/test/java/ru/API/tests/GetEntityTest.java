@@ -6,7 +6,7 @@ import ru.API.helpers.BaseRequests;
 import ru.API.pojo.Entity;
 
 public class GetEntityTest extends BaseTest {
-    @Test
+    @Test(invocationCount = 2)
     public void testGetCorrectEntity() {
         Entity entityNew = BaseRequests.getEntityById(entityId, requestSpecification);
         Assert.softAssert(entity, entityNew);
